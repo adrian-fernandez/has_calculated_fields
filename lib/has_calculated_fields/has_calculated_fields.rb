@@ -27,6 +27,7 @@ module HasCalculatedFields
     end
 
     def _has_calculated_fields__on_before_save
+      return unless respond_to?(:has_calculated_fields_options)
       return unless has_calculated_fields_options.has_key?(:on_before_save)
 
       has_calculated_fields_options[:on_before_save].each do |data|

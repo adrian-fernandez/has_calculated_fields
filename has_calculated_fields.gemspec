@@ -5,7 +5,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "has_calculated_fields"
-  s.version     = "1.0.0"
+  s.version     = "1.0.1"
   s.platform    = Gem::Platform::RUBY
   s.author      = ["Adrian Fernandez"]
   s.email       = ["adrianfernandez85@gmail.com"]
