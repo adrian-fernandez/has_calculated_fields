@@ -23,8 +23,21 @@ module HasCalculatedFields
     end
 
     included do
+      before_validation :_has_calculated_fields__on_before_validation
+      after_validation :_has_calculated_fields__on_after_validation
       before_save :_has_calculated_fields__on_before_save
-      before_save :_has_calculated_fields__on_after_save
+      before_update :_has_calculated_fields__on_before_update
+      before_create :_has_calculated_fields__on_before_create
+      before_destroy :_has_calculated_fields__on_before_destroy
+      around_save :_has_calculated_fields__on_around_save
+      around_update :_has_calculated_fields__on_around_update
+      around_create :_has_calculated_fields__on_around_create
+      around_destroy :_has_calculated_fields__on_around_destroy
+      after_create :_has_calculated_fields__on_after_create
+      after_update :_has_calculated_fields__on_after_update
+      after_destroy :_has_calculated_fields__on_after_destroy
+      after_save :_has_calculated_fields__on_after_save
+      after_commit :_has_calculated_fields__on_after_commit
     end
 
     def _has_calculated_fields__on_before_save
@@ -45,6 +58,123 @@ module HasCalculatedFields
       end
     end
 
+    def _has_calculated_fields__on_before_validation
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_before_validation)
+
+      has_calculated_fields_options[:on_before_validation].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_after_validation
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_after_validation)
+
+      has_calculated_fields_options[:on_after_validation].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_before_update
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_before_update)
+
+      has_calculated_fields_options[:on_before_update].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_before_create
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_before_create)
+
+      has_calculated_fields_options[:on_before_create].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_before_destroy
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_before_destroy)
+
+      has_calculated_fields_options[:on_before_destroy].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_around_save
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_around_save)
+
+      has_calculated_fields_options[:on_around_save].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_around_update
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_around_update)
+
+      has_calculated_fields_options[:on_around_update].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_around_create
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_around_create)
+
+      has_calculated_fields_options[:on_around_create].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_around_destroy
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_around_destroy)
+
+      has_calculated_fields_options[:on_around_destroy].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_after_create
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_after_create)
+
+      has_calculated_fields_options[:on_after_create].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_after_update
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_after_update)
+
+      has_calculated_fields_options[:on_after_update].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_after_destroy
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_after_destroy)
+
+      has_calculated_fields_options[:on_after_destroy].each do |data|
+        _process_data(data)
+      end
+    end
+
+    def _has_calculated_fields__on_after_commit
+      return unless respond_to?(:has_calculated_fields_options)
+      return unless has_calculated_fields_options.has_key?(:on_after_commit)
+
+      has_calculated_fields_options[:on_after_commit].each do |data|
+        _process_data(data)
+      end
+    end
+
     def _process_data(data)
       attr_equal = "#{data[:calculated_field]}="
 
@@ -55,6 +185,7 @@ module HasCalculatedFields
                 _process_method(data)
       end
 
+      puts "#{attr_equal}#{value}"
       send(attr_equal, value)
     end
 
