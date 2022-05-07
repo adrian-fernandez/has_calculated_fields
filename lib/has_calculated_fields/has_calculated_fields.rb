@@ -218,6 +218,8 @@ module HasCalculatedFields
       end
 
       send(attr_equal, value)
+
+      true
     end
 
     def _process_date(data)

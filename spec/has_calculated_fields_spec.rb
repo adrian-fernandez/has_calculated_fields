@@ -41,7 +41,6 @@ describe HasCalculatedFields do
 
         it "does not assign conditional when condition is matched" do
           obj.name = "conditional name"
-          obj.random_attribute = "4"
 
           expect { obj.save }.not_to change {
             obj.calculated_conditional_if
@@ -60,6 +59,7 @@ describe HasCalculatedFields do
 
         it "does not assign conditional when condition is matched" do
           obj.name = "conditional name"
+          obj.random_attribute = "4"
 
           expect { obj.save }.not_to change {
             obj.calculated_conditional_unless
