@@ -29,23 +29,42 @@ describe HasCalculatedFields do
           .to("new name calculated!")
       end
 
-      it "assigns conditional when condition is matched" do
-        obj.name = "conditional name"
-        obj.random_attribute = "4"
+      context "if_changed" do
+        it "assigns conditional when condition is matched" do
+          obj.name = "conditional name"
+          obj.random_attribute = "4"
 
-        expect { obj.save }.to change {
-          obj.calculated_conditional_unless
-        }.and change { obj.calculated_conditional_if }
-          .to("conditional name calculated!")
+          expect { obj.save }.to change {
+            obj.calculated_conditional_if
+          }
+        end
+
+        it "does not assign conditional when condition is matched" do
+          obj.name = "conditional name"
+          obj.random_attribute = "4"
+
+          expect { obj.save }.not_to change {
+            obj.calculated_conditional_if
+          }
+        end
       end
 
-      it "assigns conditional when condition is matched" do
-        obj.name = "conditional name"
+      context "unless_changed" do
+        it "assigns conditional when condition is matched" do
+          obj.name = "conditional name"
 
-        expect { obj.save }.to change {
-          obj.calculated_conditional_if
-        }.and change { obj.calculated_conditional_unless }
-          .to("conditional name calculated!")
+          expect { obj.save }.to change {
+            obj.calculated_conditional_unless
+          }
+        end
+
+        it "does not assign conditional when condition is matched" do
+          obj.name = "conditional name"
+
+          expect { obj.save }.not_to change {
+            obj.calculated_conditional_unless
+          }
+        end
       end
     end
   end

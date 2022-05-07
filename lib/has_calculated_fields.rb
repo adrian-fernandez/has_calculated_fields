@@ -2,7 +2,6 @@
 
 require "active_record"
 require "active_support/inflector"
-require "active_model_serializers"
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    has_calculated_fields (1.0.3.4)
+    has_calculated_fields (1.0.3.7)
 
 GEM
   remote: https://rubygems.org/
