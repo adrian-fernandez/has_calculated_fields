@@ -3,7 +3,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "has_calculated_fields"
-  s.version     = "1.0.3.1"
+  s.version     = "1.0.3.4"
   s.platform    = Gem::Platform::RUBY
   s.author      = ["Adrian Fernandez"]
   s.email       = ["adrianfernandez85@gmail.com"]
@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "simplecov", "~> 0.15.0"
   s.add_development_dependency "appraisal", "~> 2.2"
   s.add_development_dependency "byebug"
-  s.add_development_dependency "factory_bot", "~> 4.8"
   s.add_development_dependency "database_cleaner"
   s.add_development_dependency "active_model_serializers", "~> 0.9.3"
 end

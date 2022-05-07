@@ -5,7 +5,7 @@ describe HasCalculatedFields do
   describe "runs before_save callbacks" do
     let(:name) { "name" }
     let(:created_at) { Time.find_zone("Madrid").parse("2019-05-03 2pm") }
-    let(:obj) { create(:sample_model, created_at: created_at, name: name) }
+    let(:obj) { SampleModel.create(created_at: created_at, name: name) }
 
     context "using time" do
       context "when attribute has value" do
@@ -18,15 +18,6 @@ describe HasCalculatedFields do
             .to("Sat, 04 May 2019 16:00:00 +0200")
         end
       end
-
-      context "when attribute hasn't value" do
-        let(:created_at) { nil }
-        it "assigns formatted time attribute" do
-          expect { obj.save }.to change { obj.calculated_created_at }
-            .from(I18n.l(Time.current))
-            .to(I18n.l(Time.current.in_time_zone("UTC")))
-        end
-      end
     end
 
     context "using method" do
@@ -36,6 +27,25 @@ describe HasCalculatedFields do
         expect { obj.save }.to change { obj.calculated_name }
           .from("name calculated!")
           .to("new name calculated!")
+      end
+
+      it "assigns conditional when condition is matched" do
+        obj.name = "conditional name"
+        obj.random_attribute = "4"
+
+        expect { obj.save }.to change {
+          obj.calculated_conditional_unless
+        }.and change { obj.calculated_conditional_if }
+          .to("conditional name calculated!")
+      end
+
+      it "assigns conditional when condition is matched" do
+        obj.name = "conditional name"
+
+        expect { obj.save }.to change {
+          obj.calculated_conditional_if
+        }.and change { obj.calculated_conditional_unless }
+          .to("conditional name calculated!")
       end
     end
   end

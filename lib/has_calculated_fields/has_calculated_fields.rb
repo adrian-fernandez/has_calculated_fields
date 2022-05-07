@@ -206,6 +206,7 @@ module HasCalculatedFields
     end
 
     def _process_data(data)
+      # return true unless _should_calculate_data?(data)
       attr_equal = "#{data[:calculated_field]}="
 
       value = case data[:type]
@@ -252,6 +253,16 @@ module HasCalculatedFields
       else
         value
       end
+    end
+
+    def _should_calculate_data?(data)
+      return true if data.blank?
+      return true if !data.has_key?(:if_changed) && !data.has_key?(:unless_changed)
+
+      return true if data.has_key?(:if_changed) && changes.keys.map(&:to_sym).include?(data[:if_changed])
+      return true if data.has_key?(:unless_changed) && !changes.keys.map(&:to_sym).include?(data[:unless_changed])
+
+      false
     end
   end
 end
